@@ -108,7 +108,6 @@
     <None Include="Properties\PublishProfiles\FroyoBot - Web Deploy.pubxml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="README.md" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
