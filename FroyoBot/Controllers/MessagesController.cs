@@ -4,12 +4,18 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
+using Microsoft.Bot.Builder.FormFlow;
 
 namespace FroyoBot
 {
     [BotAuthentication]
     public class MessagesController : ApiController
     {
+        internal static IDialog<FroyoOrder> MakeRootDialog()
+        {
+            return Chain.From(() => FormDialog.FromForm(FroyoOrder.BuildForm));
+        }
+
         /// <summary>
         /// POST: api/Messages
         /// Receive a message from a user and reply to it
@@ -18,7 +24,7 @@ namespace FroyoBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new Dialogs.RootDialog());
+                await Conversation.SendAsync(activity, MakeRootDialog);
             }
             else
             {
